@@ -10,11 +10,31 @@
 */
 
 const myLibrary = [];
+const form = document.querySelector('form');
 
-function Book() {
-    // the constructor...
+function Book(title, author, pages, isRead){
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.isRead = isRead
+
+        this.toggleRead = function(){
+            console.log("toggleRead")
+        }
 }
-
-function addBookToLibrary() {
+ 
+function addBookToLibrary(event) {
     // do stuff here
+    event.preventDefault();
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+    const isRead = document.getElementById('isRead').checked ? true : false;
+    
+    console.log(`title: ${title} author: ${author} pages ${pages} isread ${isRead}`)
+
+    const newBook = new Book(title,author,pages,isRead);
+    myLibrary.push(newBook);
 }
+
+form.addEventListener("submit", addBookToLibrary);

@@ -1,30 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
-        <form action="#" method="get">
-            <div class="title">
-            <label for="title">Title: </label><input type="text" class="title" id="title">
+        <div class="sidebar">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30">
+                    <path
+                        d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Zm-80 400q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Z" />
+                </svg>
+                <div class="logoname">Library</div>
             </div>
-            <label for="author">Author: </label><input type="text" class="author" id="author">
-            <button type="submit" class="add-book">Add Book</button>
-        </form>
+            <form action="#" method="#">
+                <div class="title">
+                    <label for="title">Title: </label><input type="text" class="title" id="title" required>
+                </div>
+                <div class="author">
+                    <label for="author">Author: </label><input type="text" class="author" id="author" required>
+                </div>
+                <div class="pages">
+                    <label for="pages">Pages: </label><input type="number" class="pages" id="pages" required>
+                </div>
+                <div class="is-read">
+                    <label for="isRead">Have you read this?</label><input type="checkbox" name="isRead" id="isRead"
+                        value="1">
+                </div>
+                <button type="submit" class="add-book">Add Book</button>
+            </form>
+        </div>
 
-        <div class="card">
-            <div class="title">Title: See me Now</div>
-            <div class="author">Author: John Cena</div>
-            <div class="pages">Pages: 999</div>
-            <div class="status">Read or Not</div>
-            <button class="toggle-read">Toggle Read</button>
-            <button class="remove-book">Remove</button>
+        <div class="main">
+            <table class="library">
+                <thead>
+                    <tr>
+                        <td>Title</td>
+                        <td>Author</td>
+                        <td>Pages</td>
+                        <td>Status</td>
+                        <td>Toggle read</td>
+                        <td>Remove</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>See me Now</td>
+                        <td>John Cena</td>
+                        <td>999</td>
+                        <td>read</td>
+                        <td>
+                            <button class="toggle-read">Toggle Read</button>
+                        </td>
+                        <td>
+                            <button class="remove-book">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
         </div>
     </div>
     <script src="main.js"></script>
 </body>
+
 </html>
