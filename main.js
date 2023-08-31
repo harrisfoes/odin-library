@@ -19,8 +19,8 @@ function Book(title, author, pages, isRead) {
     this.isRead = isRead
 
     this.toggleRead = function () {
-        console.log("toggleRead")
-        this.isRead = !isRead;
+        console.log(`toggleRead: this.isRead`)
+        this.isRead = !this.isRead;
     }
 }
 
@@ -53,7 +53,7 @@ function updateTable() {
 
     //generate table rows for each item in myLibrary
     myLibrary.forEach((element) => {
-        let isRead = element.isRead ? 'already read' : 'not read yet'; 
+        let isRead = element.isRead ? 'Already read' : 'Not read yet'; 
         //console.log(isRead);
         const remove = 
             `<div data-action="remove" class="div-remove">
@@ -92,22 +92,45 @@ function updateTable() {
             console.log("removetriggered")
             removeRow(event);
         }
+        else if (action == "toggle"){
+            toggleReadStatus(event);
+        }
+    });
+}
+
+function toggleReadStatus(event){
+    console.log(event.target.closest("tr").dataset.attr)
+    const indexOfRowtoToggle = event.target.closest("tr").dataset.attr;
+
+    myLibrary[indexOfRowtoToggle].toggleRead()
+
+    updateTable();
+}
+
+function arrayRemove(arr, value){
+    return arr.filter(function(ele){
+        return ele != value;
     });
 }
 
 function removeRow(event){
-    //how to remove row?
-    //console.log(remove);
+
     console.log(event.target.closest("tr").dataset.attr)
     const indexOfRowtoRemove = event.target.closest("tr").dataset.attr;
 
     //slice + concat is used to remove an item in the array safely
+    /*
     const removeUpTo = myLibrary.slice(0,indexOfRowtoRemove);
-    const afterRemoved = myLibrary.slice(indexOfRowtoRemove + 1)
+    const afterRemoved = myLibrary.slice((indexOfRowtoRemove+1))
     const newMyLibrary = removeUpTo.concat(afterRemoved);
-    console.log(`index of removed: ${indexOfRowtoRemove} removeUpTo: ${removeUpTo} afterRemoved: ${afterRemoved}`)
+    console.log(`removing index: ${indexOfRowtoRemove} removeUpTo: ${removeUpTo} afterRemoved: ${afterRemoved}`)
+    console.log(removeUpTo);
+    console.log(afterRemoved);
     console.log(newMyLibrary);
-    myLibrary = newMyLibrary;
+    */
+    myLibrary = arrayRemove(myLibrary, myLibrary[indexOfRowtoRemove])
+
+    console.log(myLibrary);
 
     updateTable();
 }
