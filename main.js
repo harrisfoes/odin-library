@@ -9,7 +9,7 @@
 - add a button on each book's display to change its read status
 */
 
-const myLibrary = [];
+let myLibrary = [];
 const form = document.querySelector('form');
 
 function Book(title, author, pages, isRead) {
@@ -20,6 +20,7 @@ function Book(title, author, pages, isRead) {
 
     this.toggleRead = function () {
         console.log("toggleRead")
+        this.isRead = !isRead;
     }
 }
 
@@ -31,7 +32,7 @@ function addBookToLibrary(event) {
     const pages = document.getElementById('pages').value;
     const isRead = document.getElementById('isRead').checked ? true : false;
 
-    console.log(`title: ${title} author: ${author} pages ${pages} isread ${isRead}`)
+    //console.log(`title: ${title} author: ${author} pages ${pages} isread ${isRead}`)
     const newBook = new Book(title, author, pages, isRead);
 
     //add to my library
@@ -44,7 +45,7 @@ function addBookToLibrary(event) {
 function updateTable() {
     //update table based on mylibrary content
     const library = document.querySelector(".library-body");
-    console.log(library);
+    //console.log(library);
     library.innerHTML = '';
     
     let toInsert = '';
@@ -53,8 +54,13 @@ function updateTable() {
     //generate table rows for each item in myLibrary
     myLibrary.forEach((element) => {
         let isRead = element.isRead ? 'already read' : 'not read yet'; 
-        console.log(isRead);
-        const remove = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>`;
+        //console.log(isRead);
+        const remove = 
+            `<div data-action="remove" class="div-remove">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+            </svg>
+            </div>`;
 
         toInsert +=
             `<tr data-attr=${index}>
@@ -62,33 +68,48 @@ function updateTable() {
             <td>${element.author}</td>
             <td>${element.pages}</td>
             <td>${isRead}</td>
-            <td><button class="toggle-read">Toggle read</td>
-            <td class="remove">${remove}</td>
+            <td><div data-action="toggle" class="div-toggle"><button class="toggle-read">Toggle</button></div></td>
+            <td class="remove" >${remove}</td>
             </tr>`;
 
         index++;
     });
 
-    console.log(toInsert);
-
+    //console.log(toInsert);
     library.innerHTML = toInsert;
 
-    //add listeners to newly created items    
-    const removeButtons = document.querySelectorAll(".remove");
-    console.log(removeButtons);
-    
-    removeButtons.forEach(item => {
-            item.addEventListener("click", function(event){
-                console.log(event)
-            });
-    })
-    
+    //adding listeners to dynamically created stuff
+    library.addEventListener("click", function(event){
+
+        //relevant divs have data attributes named action
+        const action = event.target.closest("div").dataset.action;
+        console.log(action);
+
+        //VERY IMPORTANT, stop bubbling immediately, or else the function will call again
+        event.stopImmediatePropagation();
+
+        if(action == "remove"){
+            console.log("removetriggered")
+            removeRow(event);
+        }
+    });
 }
 
-function removeRow(number){
+function removeRow(event){
     //how to remove row?
-    console.log(remove);
+    //console.log(remove);
+    console.log(event.target.closest("tr").dataset.attr)
+    const indexOfRowtoRemove = event.target.closest("tr").dataset.attr;
 
+    //slice + concat is used to remove an item in the array safely
+    const removeUpTo = myLibrary.slice(0,indexOfRowtoRemove);
+    const afterRemoved = myLibrary.slice(indexOfRowtoRemove + 1)
+    const newMyLibrary = removeUpTo.concat(afterRemoved);
+    console.log(`index of removed: ${indexOfRowtoRemove} removeUpTo: ${removeUpTo} afterRemoved: ${afterRemoved}`)
+    console.log(newMyLibrary);
+    myLibrary = newMyLibrary;
+
+    updateTable();
 }
 
 form.addEventListener("submit", addBookToLibrary);

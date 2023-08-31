@@ -73,6 +73,12 @@ tbody tr{
     border-bottom: 1px solid var(--navy);
 }
 
+.div-remove,
+.div-toggle{
+    cursor:pointer;
+    display:inline-block;
+}
+
 .remove svg{
     fill: var(--blue);
 }
