@@ -19,7 +19,6 @@ function Book(title, author, pages, isRead) {
     this.isRead = isRead
 
     this.toggleRead = function () {
-        console.log(`toggleRead: this.isRead`)
         this.isRead = !this.isRead;
     }
 }
@@ -41,7 +40,7 @@ function addBookToLibrary(event) {
     //update the table
     updateTable();
 }
-
+console.log(`toggleRead: this.isRead`)
 function updateTable() {
     //update table based on mylibrary content
     const library = document.querySelector(".library-body");
@@ -83,13 +82,11 @@ function updateTable() {
 
         //relevant divs have data attributes named action
         const action = event.target.closest("div").dataset.action;
-        console.log(action);
 
         //VERY IMPORTANT, stop bubbling immediately, or else the function will call again
         event.stopImmediatePropagation();
 
         if(action == "remove"){
-            console.log("removetriggered")
             removeRow(event);
         }
         else if (action == "toggle"){
@@ -118,16 +115,6 @@ function removeRow(event){
     console.log(event.target.closest("tr").dataset.attr)
     const indexOfRowtoRemove = event.target.closest("tr").dataset.attr;
 
-    //slice + concat is used to remove an item in the array safely
-    /*
-    const removeUpTo = myLibrary.slice(0,indexOfRowtoRemove);
-    const afterRemoved = myLibrary.slice((indexOfRowtoRemove+1))
-    const newMyLibrary = removeUpTo.concat(afterRemoved);
-    console.log(`removing index: ${indexOfRowtoRemove} removeUpTo: ${removeUpTo} afterRemoved: ${afterRemoved}`)
-    console.log(removeUpTo);
-    console.log(afterRemoved);
-    console.log(newMyLibrary);
-    */
     myLibrary = arrayRemove(myLibrary, myLibrary[indexOfRowtoRemove])
 
     console.log(myLibrary);
