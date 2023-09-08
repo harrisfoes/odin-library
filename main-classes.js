@@ -81,4 +81,4 @@ class ScreenController{
 }
 
 const screen = new ScreenController();
-screen.addBook("JungleBook","Blueballs","123",true);
+screen.addBook("JungleBook","Rudyard Kipling","123",true);
