@@ -24,3 +24,9 @@ URL: https://harrisfoes.github.io/odin-library/
 The biggest challenge for this is the dynamically created buttons. The biggest bugs had to do with propagation and array.slice manipulation, which I had then fixed by using array.filter. 
 I managed to finish this project in 2 and a half days with around 4-5 hours of concentrated work per day.
 Overall I enjoyed it.
+
+# Update
+Refactored code to make it a class implementation
+Ran into a few bugs that stumped me but I was able to fix it after taking a break (who knew that worked?)
+Wiped my first rewrite of the code due to mishandling of git branch, thankfully I'm not in an enterprise software
+That's a good lesson, hope I never get that mistake again...

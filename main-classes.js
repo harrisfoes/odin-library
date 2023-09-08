@@ -28,6 +28,10 @@ class Library {
     removeBook(bookIndex) {
         this.library = this.library.filter((books) => books != this.library[bookIndex])
     }
+
+    toggleBook(index){
+        this.library[index].toggleRead();
+    }
 }
 
 
@@ -36,6 +40,26 @@ class ScreenController{
         this.myLibrary = new Library();
         this.libraryDiv = document.querySelector(".library-body");
         this.form = document.querySelector("form");
+    }
+
+    getForm = () => this.form;
+
+    handleClick = (event) => {
+
+        //relevant divs have data attributes named action
+        const action = event.target.closest("div").dataset.action;
+        const index = event.target.closest("tr").dataset.attr;
+        event.stopImmediatePropagation();
+
+        if(action == "remove"){
+            console.log(this.myLibrary);
+            this.myLibrary.removeBook(index);
+        }
+        else if (action == "toggle"){
+            this.myLibrary.toggleBook(index);
+        }
+        this.updateTable()
+
     }
 
     updateTable() {
@@ -57,7 +81,7 @@ class ScreenController{
             </svg>
             </div>`;
 
-            toInsert =
+            toInsert +=
                 `<tr data-attr=${index}>
                 <td>${element.title}</td>
                 <td>${element.author}</td>
@@ -69,6 +93,7 @@ class ScreenController{
         });
         
         this.libraryDiv.innerHTML = toInsert;
+        this.libraryDiv.addEventListener("click", this.handleClick);
 
     }
 
@@ -82,3 +107,14 @@ class ScreenController{
 
 const screen = new ScreenController();
 screen.addBook("JungleBook","Rudyard Kipling","123",true);
+
+screen.getForm().addEventListener("submit", function(event){
+
+    event.preventDefault();
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+    const isRead = document.getElementById('isRead').checked ? true : false;
+    screen.addBook(title,author,pages,isRead);
+
+})
