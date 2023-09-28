@@ -3,30 +3,12 @@ Mini library app for odin-project that is a demonstration of how Objects work in
 
 URL: https://harrisfoes.github.io/odin-library/
 
-## Requirements
-
-## Dev Breakdown
-[x] create javascript prototype that works on console
-[x] adding new objects into an array
-[x] attaching listener to dynamically created buttons
-[x] attach data to onclick
-[x] learn about bubbling
-[x] check event when bubbling
-[x] finish delete functionality
-[x] use method to change read status
-[x] finish read functionality
-[x] overall program flow
-[x] bug fixing
-[x] polishing
-[x] code review
-
 ## Thoughts
-The biggest challenge for this is the dynamically created buttons. The biggest bugs had to do with propagation and array.slice manipulation, which I had then fixed by using array.filter. 
+The biggest challenge for this is the dynamically created buttons. The bugs had to do with propagation and array.slice manipulation, which I had then fixed by using array.filter. 
 I managed to finish this project in 2 and a half days with around 4-5 hours of concentrated work per day.
 Overall I enjoyed it.
 
 # Update
 Refactored code to make it a class implementation
 Ran into a few bugs that stumped me but I was able to fix it after taking a break (who knew that worked?)
-Wiped my first rewrite of the code due to mishandling of git branch, thankfully I'm not in an enterprise software
-That's a good lesson, hope I never get that mistake again...
+Wiped my first rewrite of the code due to mishandling of git branch but recovered it fairly quickly
